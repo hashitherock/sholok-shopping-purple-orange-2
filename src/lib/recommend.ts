@@ -42,7 +42,10 @@ export function searchProducts(all: Product[], query: string): Product[] {
 export function recommend(all: Product[], query: string | null, seed: number, limit = 18): Product[] {
   const pool = all.filter(inStock);
   if (!query) return seededShuffle(pool, seed).slice(0, limit);
-  const relevant = seededShuffle(searchProducts(pool, query), seed);
+  // Shuffle within equal-score tiers so best matches always come first.
+  const scored = pool.map((p) => ({ p, s: matchScore(p, query) })).filter((x) => x.s > 0);
+  const tiers = [...new Set(scored.map((x) => x.s))].sort((a, b) => b - a);
+  const relevant = tiers.flatMap((t) => seededShuffle(scored.filter((x) => x.s === t).map((x) => x.p), seed));
   const relevantCats = new Set(relevant.map((p) => p.category));
   const relatedCats = new Set(
     [...relevantCats].flatMap((slug) => categories.find((c) => c.slug === slug)?.related ?? []),
