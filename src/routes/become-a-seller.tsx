@@ -26,14 +26,14 @@ const benefits = [
 
 function SellerPage() {
   const [sent, setSent] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const err: Record<string, string> = {};
-    if (!String(f.get("name")).trim()) err.name = "Please enter your name";
-    if (!String(f.get("shop")).trim()) err.shop = "Please enter your shop name";
-    if (!/^01\d{9}$/.test(String(f.get("phone")).replace(/\D/g, "").replace(/^880/, "0"))) err.phone = "Enter a valid 11-digit mobile number";
+    const err: { [k: string]: string } = {};
+    if (!String(f.get("name")).trim()) err["name"] = "Please enter your name";
+    if (!String(f.get("shop")).trim()) err["shop"] = "Please enter your shop name";
+    if (!/^01\d{9}$/.test(String(f.get("phone")).replace(/\D/g, "").replace(/^880/, "0"))) err["phone"] = "Enter a valid 11-digit mobile number";
     setErrors(err);
     if (Object.keys(err).length) return;
     setSent(true);
@@ -64,7 +64,7 @@ function SellerPage() {
             ) : (
               <form onSubmit={onSubmit} noValidate className="space-y-3">
                 <h2 className="text-xl font-extrabold">Start selling today</h2>
-                {[["name", "Your full name"], ["shop", "Shop name"], ["phone", "Mobile number (01XXXXXXXXX)"]].map(([n, ph]) => (
+                {([["name", "Your full name"], ["shop", "Shop name"], ["phone", "Mobile number (01XXXXXXXXX)"]] as const).map(([n, ph]) => (
                   <div key={n}>
                     <input name={n} placeholder={ph} className="field" aria-label={ph} />
                     {errors[n] && <p className="mt-1 text-xs text-sale">{errors[n]}</p>}

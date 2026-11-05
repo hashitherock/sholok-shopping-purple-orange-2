@@ -7,7 +7,7 @@ export function seededShuffle<T>(arr: T[], seed: number): T[] {
   for (let i = a.length - 1; i > 0; i--) {
     s = (s * 16807) % 2147483647;
     const j = s % (i + 1);
-    [a[i], a[j]] = [a[j], a[i]];
+    [a[i], a[j]] = [a[j] as T, a[i] as T];
   }
   return a;
 }

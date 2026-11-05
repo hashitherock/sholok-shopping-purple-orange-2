@@ -18,15 +18,15 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const f = new FormData(form);
-    const err: Record<string, string> = {};
-    if (!String(f.get("name")).trim()) err.name = "Name is required";
-    if (!/^\S+@\S+\.\S+$/.test(String(f.get("email")))) err.email = "Enter a valid email";
-    if (String(f.get("message")).trim().length < 10) err.message = "Message must be at least 10 characters";
+    const err: { [k: string]: string } = {};
+    if (!String(f.get("name")).trim()) err["name"] = "Name is required";
+    if (!/^\S+@\S+\.\S+$/.test(String(f.get("email")))) err["email"] = "Enter a valid email";
+    if (String(f.get("message")).trim().length < 10) err["message"] = "Message must be at least 10 characters";
     setErrors(err);
     if (Object.keys(err).length) return;
     form.reset();
@@ -53,11 +53,11 @@ function ContactPage() {
         <form onSubmit={onSubmit} noValidate className="space-y-4 rounded-2xl border border-border bg-card p-6 shadow-card">
           <h2 className="text-2xl font-extrabold">Send us a message</h2>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div><input name="name" placeholder="Your name" className="field" aria-label="Your name" />{errors.name && <p className="mt-1 text-xs text-sale">{errors.name}</p>}</div>
-            <div><input name="email" type="email" placeholder="Email address" className="field" aria-label="Email" />{errors.email && <p className="mt-1 text-xs text-sale">{errors.email}</p>}</div>
+            <div><input name="name" placeholder="Your name" className="field" aria-label="Your name" />{errors["name"] && <p className="mt-1 text-xs text-sale">{errors["name"]}</p>}</div>
+            <div><input name="email" type="email" placeholder="Email address" className="field" aria-label="Email" />{errors["email"] && <p className="mt-1 text-xs text-sale">{errors["email"]}</p>}</div>
           </div>
           <input name="subject" placeholder="Subject (optional)" className="field" aria-label="Subject" />
-          <div><textarea name="message" rows={6} placeholder="How can we help?" className="field resize-none" aria-label="Message" />{errors.message && <p className="mt-1 text-xs text-sale">{errors.message}</p>}</div>
+          <div><textarea name="message" rows={6} placeholder="How can we help?" className="field resize-none" aria-label="Message" />{errors["message"] && <p className="mt-1 text-xs text-sale">{errors["message"]}</p>}</div>
           <button type="submit" className="btn-primary">Send Message</button>
         </form>
       </div>

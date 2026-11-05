@@ -5,7 +5,7 @@ import { useShop } from "@/store/shop";
 import { cn } from "@/lib/utils";
 import { Stars } from "./bits";
 
-export function ProductCard({ product, showStock = false }: { product: Product; showStock?: boolean }) {
+export function ProductCard({ product, showStock = false }: { product: Product; showStock?: boolean | undefined }) {
   const { addToCart, toggleWishlist, wishlist, compare, toggleCompare, setQuickView } = useShop();
   const wished = wishlist.includes(product.id);
   const compared = compare.includes(product.id);
@@ -70,7 +70,7 @@ export function ProductCard({ product, showStock = false }: { product: Product; 
   );
 }
 
-export function ProductGrid({ products, showStock, withSidebar }: { products: Product[]; showStock?: boolean; withSidebar?: boolean }) {
+export function ProductGrid({ products, showStock, withSidebar }: { products: Product[]; showStock?: boolean | undefined; withSidebar?: boolean | undefined }) {
   return (
     <div className={cn("grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3", withSidebar ? "xl:grid-cols-4 2xl:grid-cols-5" : "lg:grid-cols-4 xl:grid-cols-6")}>
       {products.map((p) => <ProductCard key={p.id} product={p} showStock={showStock} />)}
