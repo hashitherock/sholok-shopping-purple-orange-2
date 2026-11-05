@@ -8,13 +8,13 @@ import { PageHero } from "@/components/shop/bits";
 import { ProductGrid } from "@/components/shop/ProductCard";
 import { cn } from "@/lib/utils";
 
-type ShopSearch = { q?: string; cat?: string; sort?: string };
+type ShopSearch = { q?: string | undefined; cat?: string | undefined; sort?: string | undefined };
 
 export const Route = createFileRoute("/shop")({
   validateSearch: (s: Record<string, unknown>): ShopSearch => ({
-    q: typeof s.q === "string" ? s.q : undefined,
-    cat: typeof s.cat === "string" ? s.cat : undefined,
-    sort: typeof s.sort === "string" ? s.sort : undefined,
+    q: typeof s["q"] === "string" ? s["q"] : undefined,
+    cat: typeof s["cat"] === "string" ? s["cat"] : undefined,
+    sort: typeof s["sort"] === "string" ? s["sort"] : undefined,
   }),
   head: () => ({
     meta: [
