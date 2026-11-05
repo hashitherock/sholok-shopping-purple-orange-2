@@ -26,7 +26,7 @@ export function ProductCard({ product, showStock = false }: { product: Product; 
         {!available && (
           <span className="absolute left-2 top-9 rounded-md bg-foreground/80 px-2 py-0.5 text-xs font-bold text-background">Out of stock</span>
         )}
-        <button onClick={() => toggleWishlist(product.id)} aria label={wished ? "Remove from wishlist" : "Add to wishlist"}
+        <button onClick={() => toggleWishlist(product.id)} aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
           className={cn("absolute right-2 top-2 grid h-9 w-9 place-items-center rounded-full bg-card shadow-card transition-all hover:scale-110", wished ? "text-sale" : "text-muted-foreground hover:text-sale")}>
           <Heart className={cn("h-4 w-4", wished && "animate-pop fill-sale")} />
         </button>
