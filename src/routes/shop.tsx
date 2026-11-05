@@ -105,7 +105,7 @@ function ShopPage() {
               <Link to="/shop" className="btn-primary mt-4 text-sm">Clear filters</Link>
             </div>
           ) : (
-            <div className="[&_.xl\:grid-cols-6]:xl:grid-cols-4 [&_.xl\:grid-cols-6]:2xl:grid-cols-5"><ProductGrid products={list.slice(0, visible)} /></div>
+            <ProductGrid withSidebar products={list.slice(0, visible)} />
           )}
           {visible < list.length && <div className="mt-8 text-center"><button onClick={() => setVisible((v) => v + PAGE)} className="btn-outline">Load More</button></div>}
         </div>

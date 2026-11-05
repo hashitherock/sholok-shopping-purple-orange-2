@@ -70,9 +70,9 @@ export function ProductCard({ product, showStock = false }: { product: Product; 
   );
 }
 
-export function ProductGrid({ products, showStock }: { products: Product[]; showStock?: boolean }) {
+export function ProductGrid({ products, showStock, withSidebar }: { products: Product[]; showStock?: boolean; withSidebar?: boolean }) {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+    <div className={cn("grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3", withSidebar ? "xl:grid-cols-4 2xl:grid-cols-5" : "lg:grid-cols-4 xl:grid-cols-6")}>
       {products.map((p) => <ProductCard key={p.id} product={p} showStock={showStock} />)}
     </div>
   );
