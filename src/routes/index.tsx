@@ -1,23 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  CategorySidebar, FlashSaleSection, HeroSlider, MobileCategoryStrip, MoreToLove, PromoBanners, TrendingSection, VegBanner,
+} from "@/components/shop/HomeSections";
 
-// The home route ships no og:image, so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Sholok Shopping — Fashion, Beauty & Home Online in Bangladesh" },
+      { name: "description", content: "Shop women's & men's clothing, beauty, home, baby care and more at Sholok. Daily flash sales and fast delivery." },
+      { property: "og:title", content: "Sholok Shopping — Shop Everything You Love" },
+      { property: "og:description", content: "Fashion, beauty, home and daily essentials with flash sale deals." },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="container-x space-y-10 pb-4">
+      <div className="flex gap-5 pt-4 lg:pt-0">
+        <CategorySidebar />
+        <HeroSlider />
+      </div>
+      <MobileCategoryStrip />
+      <PromoBanners />
+      <FlashSaleSection />
+      <TrendingSection />
+      <VegBanner />
+      <MoreToLove />
     </div>
   );
 }

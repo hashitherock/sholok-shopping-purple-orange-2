@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Shop state (cart, wishlist, compare, location, last search) lives in src/store/shop.tsx context with localStorage/sessionStorage; why: frontend-only demo shared across pages.
+- Mock catalog lives in src/data/catalog.ts and recommendation logic in src/lib/recommend.ts (tested); why: keep data separate from UI.
